@@ -1,0 +1,11 @@
+# create kafka topic
+docker-compose exec -it kafka kafka-topics.sh --bootstrap-server localhost:9092 --create --partitions 1 --replication-factor 1 --topic simple-invoice
+
+# check list of kafka topics
+docker-compose exec -it kafka  kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+# produce invoice using kafka-console-producer cmds
+docker-compose exec -it kafka kafka-console-producer.sh --bootstrap-server localhost:9092 --topic simple-invoice --property parse.key=true --property key.separator=":"
+
+# check produce records using kafka-console-consumer cmds
+docker-compose exec -it 266e27c4c5a0 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic simple-invoice --from-beginning
